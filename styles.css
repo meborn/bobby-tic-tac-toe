@@ -1,3 +1,11 @@
-div {
+/* div {
   background-color: red;
+} */
+
+#gameboard, html, body, .gameboard-container {
+  height: 100%
+}
+
+.col:nth-child(2){
+  background-color: blue;
 }
