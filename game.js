@@ -1,53 +1,63 @@
 $(document).ready(function() {
 	$(".square").click(markSquare)
-	$(".square input").change(markInput)
 })
 
-// check if there's a row winner
-// clean up the code
+const p1_marker = ["p1", "🙅🏻‍♂️"]
+const p2_marker = ["p2", "🙆🏼‍♀️"]
+var current_marker = p1_marker
 
-const marker_x = "x"
-const marker_o = "o"
-var marker = marker_x
+var gameboard = []
 
-var square_values = []
+// [0] [1] [2]
+// [3] [4] [5]
+// [6] [7] [8]
+
+const wins = [[0, 1, 2],
+			  [3, 4, 5],
+			  [6, 7, 8],
+			  [0, 3, 6],
+			  [1, 4, 7],
+			  [2, 5, 8],
+			  [0, 4, 8],
+			  [2, 4, 6]]
 
 const markSquare = function() {
 	$(this).css("background-color", "white")
-	const input = $(this).find("input")
-	const span = $(this).find("span")
+	const player = $(this).find("input")
+	const marker = $(this).find("span")
 	
-	if (input.val() === "") {
-		span.text(marker)
-		input.val(marker).trigger("change")
+	if (player.val() === "") {
+		marker.text(current_marker[1])
+		player.val(current_marker[0])
 		switchMarker()
+		updateGameboard()
+		checkWinner()
 	}
 }
 
-const markInput = function() {
-	square_values = []
-	const rows = $(".container-row")
-	rows.each(function(){
-		const squares = $(this).find("input")
-		const values = []
-		squares.each(function(){
-			values.push($(this).val())
-		})
-		square_values.push(values)
+const updateGameboard = function() {
+	gameboard = []
+	const squares = $(".square input")
+	squares.each(function(){
+		gameboard.push($(this).val())
 	})
-	console.log("Square values",square_values)
 }
 
 const switchMarker = function() {
-	if (marker === marker_x) {
-		marker = marker_o
+	if (current_marker === p1_marker) {
+		current_marker = p2_marker
 	}
 	else {
-		marker = marker_x
+		current_marker = p1_marker
 	}
 }
 
-// function that checks for a win?
-// data structure that stores the win conditions. 
-// [[1,2,3],[4,5,6]...] search this array
-// if these correspondg squares are the same, we have a winner
+const checkWinner = function() {
+	for (const win of wins) {
+		line = win.map((i) => gameboard[i]);
+		result = line.filter((square) => square !== "")
+		if (result.length === 3 && [...new Set(result)].length === 1) {
+			console.log("Winner:", result[0])
+		}
+	}
+}
