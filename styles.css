@@ -27,6 +27,7 @@ html, body, .container-gameboard{
   border-radius: 16px;
   text-align: center;
   line-height: 192px;
+  font-size: 100px;
 }
 
 .container-row:nth-of-type(even){
