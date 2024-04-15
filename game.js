@@ -29,18 +29,11 @@ const markSquare = function() {
 	if (player.val() === "") {
 		marker.text(current_marker[1])
 		player.val(current_marker[0])
+		
 		switchMarker()
 		updateGameboard()
 		checkWinner()
 	}
-}
-
-const updateGameboard = function() {
-	gameboard = []
-	const squares = $(".square input")
-	squares.each(function(){
-		gameboard.push($(this).val())
-	})
 }
 
 const switchMarker = function() {
@@ -52,12 +45,36 @@ const switchMarker = function() {
 	}
 }
 
+const updateGameboard = function() {
+	gameboard = []
+	const squares = $(".square input")
+	squares.each(function(){
+		gameboard.push($(this).val())
+	})
+}
+
 const checkWinner = function() {
-	for (const win of wins) {
-		line = win.map((i) => gameboard[i]);
-		result = line.filter((square) => square !== "")
-		if (result.length === 3 && [...new Set(result)].length === 1) {
-			console.log("Winner:", result[0])
+	for (const win of wins) { // iterate through all win conditions
+		line = win.map((i) => gameboard[i]).filter((square) => square !== "") // remove blank squares
+		if (line.length === 3 && [...new Set(line)].length === 1) {
+			animateWin(win)
+			// console.log("Winner:", line[0])
 		}
 	}
 }
+
+const animateWin = function(winning_squares) {
+	const remove_indices = [...Array(9).keys()].filter(n => !winning_squares.includes(n))
+	const remove_squares = $(remove_indices.map((i) => $(".square")[i]))
+	remove_squares.each(function(){
+		$(this).animate({
+			opacity: 0
+		}, 800)
+	})
+
+	
+}
+
+// display winner
+// css animations for winner
+

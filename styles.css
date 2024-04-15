@@ -22,24 +22,30 @@ html, body, .container-gameboard{
 .square {
   width: 200px;
   height: 200px;
-  background-color: lightgreen;
-  border: 4px solid darkseagreen;
+  background-color: #F8F5F2;
+  border: 4px solid #E5DBCD;
   border-radius: 16px;
   text-align: center;
   line-height: 192px;
   font-size: 100px;
+  animation-duration: 1.5s;
 }
 
 .container-row:nth-of-type(even){
   .square:nth-of-type(odd){
-    background-color: lightblue;
-    border: 4px solid cornflowerblue;
+    background-color: #F7F3F3;
+    border: 4px solid #E0D1D1;
   }
 }
 
 .container-row:nth-of-type(odd){
   .square:nth-of-type(even){
-    background-color: lightblue;
-    border: 4px solid cornflowerblue;
+    background-color: #F7F3F3;
+    border: 4px solid #E0D1D1 ;
   }
+}
+
+@keyframes fadeOut {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
 }
