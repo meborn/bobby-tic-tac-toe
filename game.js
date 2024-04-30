@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 const p1_marker = ["p1", "🙅🏻‍♂️"]
 const p2_marker = ["p2", "🙆🏼‍♀️"]
+const winner = "none"
 var current_marker = p1_marker
 
 var gameboard = []
@@ -30,13 +31,14 @@ const markSquare = function() {
 		marker.text(current_marker[1])
 		player.val(current_marker[0])
 		
-		switchMarker()
 		updateGameboard()
+		switchPlayer()
+		updateMessage("turn", current_marker)
 		checkWinner()
 	}
 }
 
-const switchMarker = function() {
+const switchPlayer = function() {
 	if (current_marker === p1_marker) {
 		current_marker = p2_marker
 	}
@@ -58,7 +60,12 @@ const checkWinner = function() {
 		line = win.map((i) => gameboard[i]).filter((square) => square !== "") // remove blank squares
 		if (line.length === 3 && [...new Set(line)].length === 1) {
 			animateWin(win)
-			// console.log("Winner:", line[0])
+			if (line[0] === "p1") {
+				updateMessage("win", "Player 1 wins!")
+			}
+			else {
+				updateMessage("win", "Player 2 wins!")
+			}
 		}
 	}
 }
@@ -71,10 +78,23 @@ const animateWin = function(winning_squares) {
 			opacity: 0
 		}, 800)
 	})
-
-	
 }
 
-// display winner
+const updateMessage = function(type, content) {
+	if (type === "win"){
+		$("#message").text(content)
+	}
+	else if (type === "turn"){
+		if (content[0] === "p1") {
+			$("#message").text("Player 1's turn")
+		}
+		else {
+			$("#message").text("Player 2's turn")
+		}
+	}
+}
+
+// display tie
+//
 // css animations for winner
 

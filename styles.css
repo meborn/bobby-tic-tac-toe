@@ -2,8 +2,39 @@
   background-color: red;
 } */
 
-html, body, .container-gameboard{
+html, body {
   height: 100%
+}
+
+#game-title {
+  font-family: "Rubik Mono One";
+}
+
+#game-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 12px;
+}
+
+#message-row {
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 36px;
+  width: 100%;
+  font-family: "Roboto Mono";
+}
+
+#message {
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+#container-main {
+  height: 100%;
 }
 
 .container-gameboard {
@@ -11,6 +42,7 @@ html, body, .container-gameboard{
   flex-direction: column;
   row-gap: 12px;
   justify-content: center;
+  padding: 12px;
 }
 
 .container-row {
